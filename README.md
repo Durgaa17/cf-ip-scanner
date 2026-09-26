@@ -15,8 +15,9 @@ Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 | Rust           | `scan.rs`   | High performance + safety     |
 | PowerShell     | `scan.ps1`  | Windows 11 native             |
 | C              | `scan.c`    | Lightweight                   |
-| **C++**        | `scan.cpp`  | Modern C++                    |
-| **C#**         | `scan.cs`   | .NET / Windows                |
+| C++            | `scan.cpp`  | Modern C++                    |
+| C#             | `scan.cs`   | .NET / Windows                |
+| **Java**       | `scan.java` | Cross-platform JVM            |
 | PHP            | `scan.php`  | Simple scripting              |
 | Ruby           | `scan.rb`   | Clean syntax                  |
 
@@ -47,6 +48,10 @@ clang scan.c -o scanner -pthread && ./scanner
 
 # C++
 clang++ -std=c++17 scan.cpp -o scanner -pthread && ./scanner
+
+# Java
+pkg install openjdk-17 -y
+javac scan.java && java scan
 ```
 
 ---
@@ -67,6 +72,12 @@ php scan.php
 ruby scan.rb
 ```
 
+**Java** (requires JDK):
+```cmd
+javac scan.java
+java scan
+```
+
 **C / C++** (requires MinGW or Visual Studio Build Tools):
 ```cmd
 gcc scan.c -o scanner.exe -lpthread
@@ -80,12 +91,6 @@ dotnet new console -n temp --force
 copy scan.cs temp\Program.cs
 cd temp
 dotnet run
-```
-
-Or with older `csc`:
-```cmd
-csc scan.cs
-scan.exe
 ```
 
 **Rust**:
@@ -139,6 +144,7 @@ Results saved to: reachable.txt
 | C           | gcc / clang + pthread           |
 | C++         | g++ / clang++ (C++17)           |
 | C#          | .NET 6+ or Mono                 |
+| Java        | JDK 11+                         |
 | PHP         | PHP 7.4+                        |
 | Ruby        | Ruby 2.7+                       |
 
