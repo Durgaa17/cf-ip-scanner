@@ -6,17 +6,19 @@ Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 
 ### Supported Languages
 
-| Language     | File       | Best For                     |
-|--------------|------------|------------------------------|
-| Python       | `scan.py`  | Easy & cross-platform        |
-| Go           | `scan.go`  | Fastest                      |
-| Node.js      | `scan.js`  | JavaScript users             |
-| Bash         | `scan.sh`  | Termux / Linux               |
-| **Rust**     | `scan.rs`  | High performance + safety    |
-| **PowerShell**| `scan.ps1` | Windows 11 native            |
-| **C**        | `scan.c`   | Lightweight                  |
-| **PHP**      | `scan.php` | Simple scripting             |
-| **Ruby**     | `scan.rb`  | Clean syntax                 |
+| Language       | File        | Best For                      |
+|----------------|-------------|-------------------------------|
+| Python         | `scan.py`   | Easy & cross-platform         |
+| Go             | `scan.go`   | Fastest                       |
+| Node.js        | `scan.js`   | JavaScript users              |
+| Bash           | `scan.sh`   | Termux / Linux                |
+| Rust           | `scan.rs`   | High performance + safety     |
+| PowerShell     | `scan.ps1`  | Windows 11 native             |
+| C              | `scan.c`    | Lightweight                   |
+| **C++**        | `scan.cpp`  | Modern C++                    |
+| **C#**         | `scan.cs`   | .NET / Windows                |
+| PHP            | `scan.php`  | Simple scripting              |
+| Ruby           | `scan.rb`   | Clean syntax                  |
 
 ---
 
@@ -31,26 +33,20 @@ cd cf-ip-scanner
 Then choose one:
 
 ```bash
-# Python
-pkg install python -y && python scan.py
-
-# Go
-pkg install golang -y && go run scan.go
-
-# Node.js
-pkg install nodejs -y && node scan.js
-
-# Bash
+python scan.py
+go run scan.go
+node scan.js
 chmod +x scan.sh && ./scan.sh
+rustc scan.rs -o scanner && ./scanner
+php scan.php
+ruby scan.rb
 
-# Rust
-pkg install rust -y && rustc scan.rs -o scanner && ./scanner
+# C
+pkg install clang -y
+clang scan.c -o scanner -pthread && ./scanner
 
-# PHP
-pkg install php -y && php scan.php
-
-# Ruby
-pkg install ruby -y && ruby scan.rb
+# C++
+clang++ -std=c++17 scan.cpp -o scanner -pthread && ./scanner
 ```
 
 ---
@@ -62,8 +58,6 @@ git clone https://github.com/Durgaa17/cf-ip-scanner.git
 cd cf-ip-scanner
 ```
 
-Then run one of these:
-
 ```cmd
 python scan.py
 go run scan.go
@@ -73,13 +67,28 @@ php scan.php
 ruby scan.rb
 ```
 
-For **C** (requires MinGW or Visual Studio):
+**C / C++** (requires MinGW or Visual Studio Build Tools):
 ```cmd
 gcc scan.c -o scanner.exe -lpthread
+g++ -std=c++17 scan.cpp -o scanner.exe -lpthread
 scanner.exe
 ```
 
-For **Rust**:
+**C#** (requires .NET SDK):
+```cmd
+dotnet new console -n temp --force
+copy scan.cs temp\Program.cs
+cd temp
+dotnet run
+```
+
+Or with older `csc`:
+```cmd
+csc scan.cs
+scan.exe
+```
+
+**Rust**:
 ```cmd
 rustc scan.rs -o scanner.exe
 scanner.exe
@@ -119,17 +128,19 @@ Results saved to: reachable.txt
 
 ## Requirements Summary
 
-| Language    | Requirement                  |
-|-------------|------------------------------|
-| Python      | Python 3.7+                  |
-| Go          | Go 1.18+                     |
-| Node.js     | Node.js 14+                  |
-| Bash        | Bash + Python                |
-| Rust        | Rust (rustc)                 |
-| PowerShell  | PowerShell 7+ (recommended)  |
-| C           | gcc + pthread                |
-| PHP         | PHP 7.4+                     |
-| Ruby        | Ruby 2.7+                    |
+| Language    | Requirement                     |
+|-------------|---------------------------------|
+| Python      | Python 3.7+                     |
+| Go          | Go 1.18+                        |
+| Node.js     | Node.js 14+                     |
+| Bash        | Bash + Python                   |
+| Rust        | Rust (rustc)                    |
+| PowerShell  | PowerShell 7+ (recommended)     |
+| C           | gcc / clang + pthread           |
+| C++         | g++ / clang++ (C++17)           |
+| C#          | .NET 6+ or Mono                 |
+| PHP         | PHP 7.4+                        |
+| Ruby        | Ruby 2.7+                       |
 
 ---
 
