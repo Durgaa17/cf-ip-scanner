@@ -1,137 +1,101 @@
 # CF IP Scanner
 
-Fast concurrent IP ping scanner.  
-Available in **Python**, **Go**, **Node.js**, and **Bash**.  
+Fast concurrent IP ping scanner available in **multiple languages**.
+
 Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 
-Works on:
-- **Termux** (Android)
-- **Windows 11** (Python / Go / Node.js)
-- Linux / macOS
+### Supported Languages
+
+| Language     | File       | Best For                     |
+|--------------|------------|------------------------------|
+| Python       | `scan.py`  | Easy & cross-platform        |
+| Go           | `scan.go`  | Fastest                      |
+| Node.js      | `scan.js`  | JavaScript users             |
+| Bash         | `scan.sh`  | Termux / Linux               |
+| **Rust**     | `scan.rs`  | High performance + safety    |
+| **PowerShell**| `scan.ps1` | Windows 11 native            |
+| **C**        | `scan.c`   | Lightweight                  |
+| **PHP**      | `scan.php` | Simple scripting             |
+| **Ruby**     | `scan.rb`  | Clean syntax                 |
 
 ---
 
-## Features
-
-- Concurrent scanning (default 32 workers)
-- Cross-platform
-- Saves reachable IPs to `reachable.txt`
-- Easy to change the target range
-- Four versions: Python, Go, Node.js, and Bash
-
----
-
-## 1. Python Version
-
-### Termux (Android)
+## Quick Start (Termux)
 
 ```bash
 pkg update && pkg upgrade -y
-pkg install python git -y
-
 git clone https://github.com/Durgaa17/cf-ip-scanner.git
 cd cf-ip-scanner
+```
 
+Then choose one:
+
+```bash
+# Python
+pkg install python -y && python scan.py
+
+# Go
+pkg install golang -y && go run scan.go
+
+# Node.js
+pkg install nodejs -y && node scan.js
+
+# Bash
+chmod +x scan.sh && ./scan.sh
+
+# Rust
+pkg install rust -y && rustc scan.rs -o scanner && ./scanner
+
+# PHP
+pkg install php -y && php scan.php
+
+# Ruby
+pkg install ruby -y && ruby scan.rb
+```
+
+---
+
+## Windows 11
+
+```cmd
+git clone https://github.com/Durgaa17/cf-ip-scanner.git
+cd cf-ip-scanner
+```
+
+Then run one of these:
+
+```cmd
 python scan.py
-```
-
-### Windows 11
-
-```cmd
-git clone https://github.com/Durgaa17/cf-ip-scanner.git
-cd cf-ip-scanner
-python scan.py
-```
-
-**Configuration** (edit top of `scan.py`):
-
-```python
-NETWORK = "104.18.16.0/20"
-THREADS = 32
-TIMEOUT = 0.5
-```
-
----
-
-## 2. Go Version (Recommended - Fastest)
-
-### Termux
-
-```bash
-pkg install golang git -y
-git clone https://github.com/Durgaa17/cf-ip-scanner.git
-cd cf-ip-scanner
 go run scan.go
+node scan.js
+powershell -ExecutionPolicy Bypass -File scan.ps1
+php scan.php
+ruby scan.rb
 ```
 
-### Windows 11
-
+For **C** (requires MinGW or Visual Studio):
 ```cmd
-go run scan.go
+gcc scan.c -o scanner.exe -lpthread
+scanner.exe
 ```
 
-**Configuration** (edit top of `scan.go`):
-
-```go
-const (
-    Network = "104.18.16.0/20"
-    Workers = 32
-    Timeout = 500 * time.Millisecond
-)
+For **Rust**:
+```cmd
+rustc scan.rs -o scanner.exe
+scanner.exe
 ```
 
 ---
 
-## 3. Node.js Version
+## Configuration
 
-### Termux
+Every version has the same settings at the top of the file:
 
-```bash
-pkg install nodejs git -y
-git clone https://github.com/Durgaa17/cf-ip-scanner.git
-cd cf-ip-scanner
-node scan.js
-```
+- `NETWORK` / `Network` → Target CIDR (default: `104.18.16.0/20`)
+- `WORKERS` / `THREADS` → Concurrent pings (default: 32)
+- `TIMEOUT` → Ping timeout
 
-### Windows 11
-
-```cmd
-node scan.js
-```
-
-**Configuration** (edit top of `scan.js`):
-
-```js
-const NETWORK = "104.18.16.0/20";
-const WORKERS = 32;
-const TIMEOUT = 500;
-```
-
----
-
-## 4. Bash Version (Best for Termux / Linux)
-
-```bash
-pkg update && pkg upgrade -y
-pkg install python git -y          # python is used only to generate IP list
-
-git clone https://github.com/Durgaa17/cf-ip-scanner.git
-cd cf-ip-scanner
-
-chmod +x scan.sh
-./scan.sh
-```
-
-**Configuration** (edit top of `scan.sh`):
-
-```bash
-NETWORK="104.18.16.0/20"
-WORKERS=32
-TIMEOUT=0.5
-```
-
-> Note: The Bash version uses `xargs -P` for concurrency and works great on Termux and Linux.  
-> On Windows it is recommended to use the Python, Go, or Node.js version instead.
+Just edit the file and run again.
 
 ---
 
@@ -153,14 +117,19 @@ Results saved to: reachable.txt
 
 ---
 
-## Requirements
+## Requirements Summary
 
-| Version  | Requirements                              |
-|----------|-------------------------------------------|
-| Python   | Python 3.7+                               |
-| Go       | Go 1.18+                                  |
-| Node.js  | Node.js 14+                               |
-| Bash     | Bash + Python (only for IP list generation) |
+| Language    | Requirement                  |
+|-------------|------------------------------|
+| Python      | Python 3.7+                  |
+| Go          | Go 1.18+                     |
+| Node.js     | Node.js 14+                  |
+| Bash        | Bash + Python                |
+| Rust        | Rust (rustc)                 |
+| PowerShell  | PowerShell 7+ (recommended)  |
+| C           | gcc + pthread                |
+| PHP         | PHP 7.4+                     |
+| Ruby        | Ruby 2.7+                    |
 
 ---
 
