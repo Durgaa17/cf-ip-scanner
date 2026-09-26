@@ -1,6 +1,6 @@
 # CF IP Scanner
 
-Fast concurrent IP ping scanner available in **20 languages**.
+Fast concurrent IP ping scanner available in **21 languages**.
 
 Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 
@@ -20,6 +20,7 @@ Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 | C#             | `scan.cs`    | .NET / Windows                |
 | Java           | `scan.java`  | Cross-platform JVM            |
 | Kotlin         | `scan.kt`    | Modern JVM                    |
+| Swift          | `scan.swift` | Modern Apple language         |
 | PHP            | `scan.php`   | Simple scripting              |
 | Ruby           | `scan.rb`    | Clean syntax                  |
 | Perl           | `scan.pl`    | Classic scripting             |
