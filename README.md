@@ -1,6 +1,7 @@
 # CF IP Scanner
 
-Fast concurrent IP ping scanner written in pure Python.  
+Fast concurrent IP ping scanner.  
+Available in both **Python** and **Go**.  
 Originally made to scan Cloudflare IP ranges, but works with **any CIDR** range.
 
 Works on:
@@ -12,42 +13,29 @@ Works on:
 
 ## Features
 
-- Concurrent scanning (default 32 threads)
+- Concurrent scanning (default 32 workers)
 - Cross-platform (Windows + Linux/Termux)
 - Saves reachable IPs to `reachable.txt`
 - Easy to change the target range
+- Two versions: Python (`scan.py`) and Go (`scan.go`)
 
 ---
 
-## How to Use
+## 1. Python Version
 
-### 1. Termux (Android)
+### Termux (Android)
 
 ```bash
-# Update packages
 pkg update && pkg upgrade -y
-
-# Install required tools
 pkg install python git -y
 
-# Clone the repository
 git clone https://github.com/Durgaa17/cf-ip-scanner.git
 cd cf-ip-scanner
 
-# Run the scanner
 python scan.py
 ```
 
-Results will be saved in `reachable.txt` in the same folder.
-
----
-
-### 2. Windows 11 (Command Prompt or PowerShell)
-
-#### Method A: Using Git (Recommended)
-
-1. Install [Git for Windows](https://git-scm.com/download/win) if you don't have it.
-2. Open **Command Prompt** or **PowerShell** and run:
+### Windows 11
 
 ```cmd
 git clone https://github.com/Durgaa17/cf-ip-scanner.git
@@ -55,31 +43,64 @@ cd cf-ip-scanner
 python scan.py
 ```
 
-#### Method B: Without Git
+> Make sure Python is installed: https://www.python.org/downloads/
 
-1. Download the repository as ZIP from:  
-   https://github.com/Durgaa17/cf-ip-scanner
-2. Extract the ZIP file.
-3. Open the folder in Command Prompt / PowerShell.
-4. Run:
-
-```cmd
-python scan.py
-```
-
-> **Note:** Make sure Python is installed and added to PATH.  
-> Download Python from: https://www.python.org/downloads/
-
----
-
-## Configuration
-
-Open `scan.py` and edit these lines at the top:
+**Configuration** (edit top of `scan.py`):
 
 ```python
-NETWORK = "104.18.16.0/20"   # Change to any CIDR (example: 1.1.1.0/24)
-THREADS = 32                 # Number of parallel pings
-TIMEOUT = 0.5                # Timeout per ping (seconds)
+NETWORK = "104.18.16.0/20"   # Change to any CIDR
+THREADS = 32
+TIMEOUT = 0.5
+```
+
+---
+
+## 2. Go Version (Recommended - Faster)
+
+### Termux (Android)
+
+```bash
+pkg update && pkg upgrade -y
+pkg install golang git -y
+
+git clone https://github.com/Durgaa17/cf-ip-scanner.git
+cd cf-ip-scanner
+
+# Run directly
+go run scan.go
+
+# Or build a binary
+go build -o scanner scan.go
+./scanner
+```
+
+### Windows 11
+
+1. Install Go from: https://go.dev/dl/
+2. Open Command Prompt / PowerShell:
+
+```cmd
+git clone https://github.com/Durgaa17/cf-ip-scanner.git
+cd cf-ip-scanner
+
+go run scan.go
+```
+
+Or build an `.exe`:
+
+```cmd
+go build -o scanner.exe scan.go
+scanner.exe
+```
+
+**Configuration** (edit top of `scan.go`):
+
+```go
+const (
+    Network = "104.18.16.0/20" // Change to any CIDR
+    Workers = 32
+    Timeout = 500 * time.Millisecond
+)
 ```
 
 ---
@@ -87,7 +108,7 @@ TIMEOUT = 0.5                # Timeout per ping (seconds)
 ## Example Output
 
 ```
-Scanning 104.18.16.0/20 (4094 hosts) with 32 threads...
+Scanning 104.18.16.0/20 (4094 hosts) with 32 workers...
 This may take a while depending on the range size.
 
 [+] 104.18.16.5
@@ -104,8 +125,10 @@ Results saved to: reachable.txt
 
 ## Requirements
 
-- Python 3.7+
-- No external libraries needed (uses only standard library)
+| Version | Requirements                  |
+|---------|-------------------------------|
+| Python  | Python 3.7+ (standard library only) |
+| Go      | Go 1.18+ (standard library only)    |
 
 ---
 
